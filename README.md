@@ -87,7 +87,7 @@
 
 ## Section 2
 
-### Installation CDC
+### Installation and Configuration CDC
 1. Download
    Download Red Hat Container Development Kit (CDK).
 
@@ -128,3 +128,34 @@
    • oc logs -f dc/<name> pour afficher le log d'un déploiment
    • oc logs --help aide de la commande 
 
+
+### Launch with command oc
+
+   1. Launch Strimzi operator
+
+      ```
+      oc apply -f create-strimzi-cluster-operator.yaml -n mykafka
+
+   2. Launch Kafka Cluster
+
+      ```
+      oc apply -f create-kafka-cluster.yaml -n mykafka
+
+   3. Launch Creation topic
+
+      ```
+      oc apply -f create-topic.yaml -n mykafka
+
+### Errors
+
+   1. Launch CRC takes a lot of time
+      
+      I think you have to wait, or else you can buy the paiement version
+
+   2. Error to launch Strimzi Operator
+
+      Relaunch CRC
+
+   3. Error to launch kafka cluster
+
+      Remove Cluster and relaunch 
