@@ -88,13 +88,43 @@
 ## Section 2
 
 ### Installation CDC
-1. Download and Prerequisites ( 5 minutes )
-   Download Red Hat Container Development Kit (CDK).  Please see Prerequisites for running the CDK on Windows and Notes for Windows Users below.
-   CDK 3.7.0 for Windows (463 MB)
-   Prerequisites for running the CDK on Windows
+1. Download
+   Download Red Hat Container Development Kit (CDK).
+
+   ``https://developers.redhat.com/download-manager/file/cdk-3.7.0-1-minishift-windows-amd64.exe``
+
+   Version for local
+   
+   ``https://console.redhat.com/openshift/create/local``
+
+3. Prerequisites for running the CDK on Windows. 
+
    The prerequisites for running the CDK are:
 
-- A Red Hat Developer Program username and password are required to download the CDK and to enable the Red Hat Enterprise Linux VM included with the CDK to download container images from Red Hat.  Please make sure to accept the terms and conditions.
-- A virtualization platform (hypervisor): Hyper-V or VirtualBox.
-- 25 GB of free disk space.
+   - A Red Hat Developer Program username and password are required to download the CDK and to enable the Red Hat Enterprise Linux VM included with the CDK to download container images from Red Hat.  Please make sure to accept the terms and conditions.
+   - A virtualization platform (hypervisor): Hyper-V or VirtualBox.
+   - 25 GB of free disk space.
+
+4. Set up Hyper-V
+   ``https://access.redhat.com/documentation/en-us/red_hat_container_development_kit/3.7/html-single/getting_started_guide/index#setting-up-hyper-v-hypervisor``
+
+
+5. Some useful commands
+
+   ```
+   Quelques commandes utiles
+   • oc new-project mon_projet_avec_un_nom_unique pour débuter un projet
+   • oc projects pour afficher mes projets
+   • oc project mon_projet_avec_un_nom_unique pour entrer dans un projet
+   • oc get templates -n openshift pour aficher les templates disponibles
+   • oc process --parameters nom_du_template -n openshift pour afficher la documentation de chaque paramètre du template
+   • oc new-app lamp pour déployer un projet avec les paramètre par défaut
+   • oc new-app lamp -p PARM1=val_du_1er_param -p PARM2=val_du_1me_param etc. pour lancer une application paramétrée
+   • oc get podspour afficher les Pods actifs du projet
+   • oc rsh le_nom_du_pod pour se connecter dans un Pod actif
+   • oc cp le_nom_du_pod:rep/fichier . ou oc cp fichier le_nom_du_pod:rep/ pour copier un fichier depuis/dans un Pod actif
+   • oc rsync le_nom_du_pod:rep/fichier . ou oc rsync mon_dossier le_nom_du_pod:rep/ pour synchroniser un dossier depuis/dans un Pod actif
+   • oc rollout latest dc/<name> pour redéployer une application
+   • oc logs -f dc/<name> pour afficher le log d'un déploiment
+   • oc logs --help aide de la commande 
 
