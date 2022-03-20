@@ -1,6 +1,14 @@
 # Simple project allows creating kafka cluster
 
-## Installation tools
+> Section 1 : creation kafka cluster based on minikube
+> Section 2 : creation kafka cluster based on Redhat OpenShift CDC (CodeReady Container)
+> 
+> PS. The solution minishift is for OpenShift 3
+>     The solution CDC is for OpenShift 4
+>     Minikube is equivalent than openshift to launch kafka cluster
+
+## Section 1
+### Installation tools
 1. Install windows chocolatey
 
     ``https://chocolatey.org/install``
@@ -34,21 +42,21 @@
    ``https://github.com/minishift/minishift/releases``
 
 
-## Configuration environment
+### Configuration environment
 
-### Create new namespace
+#### Create new namespace
 
     $ kubectl create -f create-namespace.yaml
 
-### Create strimzi cluster operator
+#### Create strimzi cluster operator
     $ kubectl create -f create-strimzi-cluster-operator.yaml -n mykafka
 
-### Create kafka cluster
+#### Create kafka cluster
     $ kubectl create -f create-kafka-cluster.yaml -n mykafka
 
     kafka.kafka.strimzi.io/mycluster created
 
-### Get cluster information
+#### Get cluster information
     $ kubectl get pods -n mykafka
 
     NAME                                         READY   STATUS    RESTARTS   AGE
@@ -62,7 +70,7 @@
     mycluster-zookeeper-2                        1/1     Running   0          16m
     strimzi-cluster-operator-7599bc57cb-2h6p6    1/1     Running   0          20m
 
-### List all services
+#### List all services
     $ kubectl get services -n mykafka
 
     NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                               AGE
@@ -70,3 +78,18 @@
     mycluster-kafka-brokers      ClusterIP   None             <none>        9090/TCP,9091/TCP,9092/TCP,9093/TCP   15m
     mycluster-zookeeper-client   ClusterIP   10.97.163.190    <none>        2181/TCP                              17m
     mycluster-zookeeper-nodes    ClusterIP   None             <none>        2181/TCP,2888/TCP,3888/TCP            17m
+
+
+## Section 2
+
+### Installation CDC
+1. Download and Prerequisites ( 5 minutes )
+   Download Red Hat Container Development Kit (CDK).  Please see Prerequisites for running the CDK on Windows and Notes for Windows Users below.
+   CDK 3.7.0 for Windows (463 MB)
+   Prerequisites for running the CDK on Windows
+   The prerequisites for running the CDK are:
+
+- A Red Hat Developer Program username and password are required to download the CDK and to enable the Red Hat Enterprise Linux VM included with the CDK to download container images from Red Hat.  Please make sure to accept the terms and conditions.
+- A virtualization platform (hypervisor): Hyper-V or VirtualBox.
+- 25 GB of free disk space.
+
