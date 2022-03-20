@@ -1,10 +1,15 @@
 # Simple project allows creating kafka cluster
 
 > Section 1 : creation kafka cluster based on minikube
+> 
 > Section 2 : creation kafka cluster based on Redhat OpenShift CDC (CodeReady Container)
 > 
-> PS. The solution minishift is for OpenShift 3
+> PS. 
+> 
+>     The solution minishift is for OpenShift 3
+> 
 >     The solution CDC is for OpenShift 4
+> 
 >     Minikube is equivalent than openshift to launch kafka cluster
 
 ## Section 1
