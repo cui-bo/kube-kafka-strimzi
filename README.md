@@ -166,14 +166,16 @@
 ### Explication file usage
 
 
-| create-kafka-cluster-v1.yaml          | This file is not used |
-|---------------------------------------|-----------------------|
-| create-kafka-cluster-v2.yaml          | This file is used     |
-| create-kafka-cluster.yaml             | This file is not used |
-| create-namespace.yaml                 | This file is not used |
-| create-strimzi-cluster-operator.yaml  | This file is not used |
-| create-topic.yaml                     | This file is used     |
-| kafka-bridge.yaml                     | This file is not used |
-| kafka-connect.yaml                    | This file is not used |
-| kafka-topic.yaml                      | This file is not used |
-| kafka-user.yaml                       | This file is used     |
+| File name                            | Usage                 |
+|--------------------------------------|-----------------------|
+| create-kafka-cluster.yaml            | This file is not used |
+| create-kafka-cluster-v1.yaml         | This file is not used |
+| create-kafka-cluster-v2.yaml         | This file is used     |
+| create-kafka-user.yaml               | This file is used     |
+| create-namespace.yaml                | This file is not used |
+| create-strimzi-cluster-operator.yaml | This file is not used |
+| create-topic.yaml                    | This file is used     |
+| kafka-bridge.yaml                    | This file is not used |
+| kafka-connect.yaml                   | This file is not used |
+| kafka-topic.yaml                     | This file is not used |
+| kafka-user.yaml                      | This file is used     |

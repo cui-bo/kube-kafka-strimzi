@@ -24,6 +24,8 @@ spec:
         port: 9094
         type: route
         tls: true
+        authentication:
+          type: tls
     config:
       inter.broker.protocol.version: "3.0"
       log.message.format.version: "3.0"
