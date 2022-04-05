@@ -26,6 +26,17 @@ spec:
         tls: true
         authentication:
           type: tls
+#    resources:
+#      requests:
+#        memory: 2Gi
+#        cpu: 500m
+#      limits:
+#        memory: 10Gi
+#        cpu: 500m
+#    jvmOptions:
+#      -Xms: 1024m
+#      -Xmx: 1024m
+#      gcLoggingEnabled: false
     config:
       inter.broker.protocol.version: "3.0"
       log.message.format.version: "3.0"
@@ -37,11 +48,15 @@ spec:
       volumes:
       - id: 0
         type: persistent-claim
-        size: 2Gi
+        size: 20Gi
         deleteClaim: false
       - id: 1
         type: persistent-claim
-        size: 2Gi
+        size: 20Gi
+        deleteClaim: false
+      - id: 2
+        type: persistent-claim
+        size: 20Gi
         deleteClaim: false
   zookeeper:
     replicas: 3

@@ -1,7 +1,7 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaUser
 metadata:
-  name: socle-user
+  name: socle-user-test
   labels:
     strimzi.io/cluster: socle-cluster
 spec:
@@ -10,16 +10,16 @@ spec:
   authorization:
     type: simple
     acls:
-      # Consumer Acls for topic socle-kafka-topic
+      # Consumer Acls for topic socle-kafka-jams-topic
       - resource:
           type: topic
-          name: socle-kafka-topic
+          name: socle-kafka-jams-topic
           patternType: literal
         operation: Read
         host: "*"
       - resource:
           type: topic
-          name: socle-kafka-topic
+          name: socle-kafka-jams-topic
           patternType: literal
         operation: Describe
         host: "*"
@@ -29,22 +29,28 @@ spec:
           patternType: literal
         operation: Read
         host: "*"
-      # Producer Acls for topic socle-kafka-topic
+      - resource:
+          type: group
+          name: test-group
+          patternType: literal
+        operation: Read
+        host: "*"
+      # Producer Acls for topic socle-kafka-jams-topic
       - resource:
           type: topic
-          name: socle-kafka-topic
+          name: socle-kafka-jams-topic
           patternType: literal
         operation: Write
         host: "*"
       - resource:
           type: topic
-          name: socle-kafka-topic
+          name: socle-kafka-jams-topic
           patternType: literal
         operation: Create
         host: "*"
       - resource:
           type: topic
-          name: socle-kafka-topic
+          name: socle-kafka-jams-topic
           patternType: literal
         operation: Describe
         host: "*"
