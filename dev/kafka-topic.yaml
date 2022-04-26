@@ -1,7 +1,7 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
-  name: socle-kafka-jams-topic-1
+  name: d01.user.json.mgen.socle-kafka-test.v1
   labels:
     strimzi.io/cluster: socle-cluster
 spec:

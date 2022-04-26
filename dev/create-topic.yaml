@@ -1,12 +1,12 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
-  name: socle-kafka-topic
+  name: d01.user.json.mgen.socle-kafka-test.v1
   labels:
     strimzi.io/cluster: socle-cluster
 spec:
   partitions: 3
-  replicas: 3
+  replicas: 1
   config:
     retention.ms: 7200000
     segment.bytes: 1073741824
