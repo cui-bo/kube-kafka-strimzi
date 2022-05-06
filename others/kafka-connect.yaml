@@ -12,7 +12,7 @@ metadata:
     strimzi.io/cluster: socle-cluster
 spec:
   partitions: 1
-  replicas: 1
+  replicas: 2
   config:
     retention.ms: 604800000 # 7 days
     segment.bytes: 1073741824 # 1 Go

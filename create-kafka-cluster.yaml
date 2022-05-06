@@ -47,7 +47,12 @@ spec:
       min.insync.replicas: 2
       default.replication.factor: 3
     storage:
-      type: ephemeral
+      type: jbod
+      volumes:
+        - id: 0
+          type: persistent-claim
+          size: 20Gi
+          deleteClaim: true
   zookeeper:
     replicas: 1
 #    resources:
@@ -62,7 +67,7 @@ spec:
 #      -Xmx: 1024m
     storage:
       type: persistent-claim
-      size: 2Gi
+      size: 20Gi
       deleteClaim: true
   entityOperator:
     topicOperator: {}

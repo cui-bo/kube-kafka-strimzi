@@ -10,16 +10,16 @@ spec:
   authorization:
     type: simple
     acls:
-      # Consumer Acls for topic socle-kafka-jams-topic
+      # Consumer Acls for topic socle-topic
       - resource:
           type: topic
-          name: socle-kafka-jams-topic
+          name: socle-topic
           patternType: literal
         operation: Read
         host: "*"
       - resource:
           type: topic
-          name: socle-kafka-jams-topic
+          name: socle-topic
           patternType: literal
         operation: Describe
         host: "*"
@@ -35,22 +35,16 @@ spec:
           patternType: literal
         operation: Read
         host: "*"
-      # Producer Acls for topic socle-kafka-jams-topic
+      # Producer Acls for topic socle-topic
       - resource:
           type: topic
-          name: socle-kafka-jams-topic
+          name: socle-topic
           patternType: literal
         operation: Write
         host: "*"
       - resource:
           type: topic
-          name: socle-kafka-jams-topic
-          patternType: literal
-        operation: Create
-        host: "*"
-      - resource:
-          type: topic
-          name: socle-kafka-jams-topic
+          name: socle-topic
           patternType: literal
         operation: Describe
         host: "*"
