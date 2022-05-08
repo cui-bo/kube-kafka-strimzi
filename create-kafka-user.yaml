@@ -1,0 +1,50 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: my-user
+  labels:
+    strimzi.io/cluster: socle-cluster
+spec:
+  authentication:
+    type: tls
+  authorization:
+    type: simple
+    acls:
+      # Consumer Acls for topic my-topic
+      - resource:
+          type: topic
+          name: my-topic
+          patternType: literal
+        operation: Read
+        host: "*"
+      - resource:
+          type: topic
+          name: my-topic
+          patternType: literal
+        operation: Describe
+        host: "*"
+      - resource:
+          type: group
+          name: socle-group
+          patternType: literal
+        operation: Read
+        host: "*"
+      - resource:
+          type: group
+          name: test-group
+          patternType: literal
+        operation: Read
+        host: "*"
+      # Producer Acls for topic my-topic
+      - resource:
+          type: topic
+          name: my-topic
+          patternType: literal
+        operation: Write
+        host: "*"
+      - resource:
+          type: topic
+          name: my-topic
+          patternType: literal
+        operation: Describe
+        host: "*"
