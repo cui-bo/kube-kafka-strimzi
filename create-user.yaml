@@ -1,7 +1,7 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaUser
 metadata:
-  name: my-user
+  name: test-scalability-user
   labels:
     strimzi.io/cluster: socle-cluster
 spec:
@@ -10,16 +10,16 @@ spec:
   authorization:
     type: simple
     acls:
-      # Consumer Acls for topic my-topic
+      # Consumer Acls for topic test-scalability-topic
       - resource:
           type: topic
-          name: my-topic
+          name: test-scalability-topic
           patternType: literal
         operation: Read
         host: "*"
       - resource:
           type: topic
-          name: my-topic
+          name: test-scalability-topic
           patternType: literal
         operation: Describe
         host: "*"
@@ -35,16 +35,16 @@ spec:
           patternType: literal
         operation: Read
         host: "*"
-      # Producer Acls for topic my-topic
+      # Producer Acls for topic test-scalability-topic
       - resource:
           type: topic
-          name: my-topic
+          name: test-scalability-topic
           patternType: literal
         operation: Write
         host: "*"
       - resource:
           type: topic
-          name: my-topic
+          name: test-scalability-topic
           patternType: literal
         operation: Describe
         host: "*"
