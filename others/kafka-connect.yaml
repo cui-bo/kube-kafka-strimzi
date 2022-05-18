@@ -269,25 +269,30 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaConnect
 metadata:
   name: socle-kafka-connect
-#  annotations:
-#  # use-connector-resources configures this KafkaConnect
-#  # to use KafkaConnector resources to avoid
-#  # needing to call the Connect REST API directly
-#    strimzi.io/use-connector-resources: "true"
+  annotations:
+  # use-connector-resources configures this KafkaConnect
+  # to use KafkaConnector resources to avoid
+  # needing to call the Connect REST API directly
+    strimzi.io/use-connector-resources: "true"
 spec:
   version: 3.0.0
   replicas: 1
-  bootstrapServers: socle-cluster-kafka-bootstrap:9093
-  tls:
-    trustedCertificates:
-      - secretName: socle-cluster-cluster-ca-cert
-        certificate: ca.crt
-  authentication:
-    type: tls
-    certificateAndKey:
-      secretName: socle-kafka-connect-user
-      certificate: user.crt
-      key: user.key
+  bootstrapServers: socle-cluster-kafka-bootstrap:9092
+#  tls:
+#    trustedCertificates:
+#      - secretName: socle-cluster-cluster-ca-cert
+#        certificate: ca.crt
+#  authentication:
+#    type: tls
+#    certificateAndKey:
+#      secretName: socle-kafka-connect-user
+#      certificate: user.crt
+#      key: user.key
+#  externalConfiguration:
+#    volumes:
+#      - name: connector-credentials
+#        secret:
+#          secretName: test-secret
   config:
     group.id: connect-cluster
     offset.storage.topic: connect-cluster-offsets
@@ -297,3 +302,21 @@ spec:
     config.storage.replication.factor: -1
     offset.storage.replication.factor: -1
     status.storage.replication.factor: -1
+    key.converter: org.apache.kafka.connect.json.JsonConverter
+    value.converter: org.apache.kafka.connect.json.JsonConverter
+    key.converter.schemas.enable: true
+    value.converter.schemas.enable: true
+  build:
+    output:
+      type: docker
+      image: cupidcb/couchbase-sink:latest
+      pushSecret: my-registry-credentials
+    plugins:
+      - name: couchbase-connector
+        artifacts:
+          - type: tgz
+            url: https://repo.maven.apache.org/maven2/org/apache/camel/kafkaconnector/camel-couchbase-sink-kafka-connector/1.0.0/camel-couchbase-sink-kafka-connector-1.0.0-package.tar.gz
+  template:
+    pod:
+      imagePullSecrets:
+        - name: test-secret

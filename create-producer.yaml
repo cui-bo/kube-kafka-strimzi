@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations: { }
+  labels:
+    app: test-scalability-producer
   name: test-scalability-producer
-  namespace: kafka
 spec:
   replicas: 1
   selector:
@@ -15,53 +15,22 @@ spec:
         app: test-scalability-producer
     spec:
       containers:
-        - env:
-            - name: spring.kafka.bootstrap-servers
-              value: ssl://socle-cluster-kafka-bootstrap:9093
-            - name: spring.kafka.ssl.trust-store-location
-              value: file:///tmp/kafka/cluster/ca.p12
-            - name: spring.kafka.ssl.trust-store-password
-              valueFrom:
-                secretKeyRef:
-                  key: ca.password
-                  name: socle-cluster-cluster-ca-cert
-            - name: spring.kafka.ssl.trust-store-type
-              value: PKCS12
-            - name: spring.kafka.ssl.key-store-location
-              value: file:///tmp/kafka/client/user.p12
-            - name: spring.kafka.ssl.key-store-password
-              valueFrom:
-                secretKeyRef:
-                  key: user.password
-                  name: test-scalability-user
-            - name: spring.kafka.ssl.trust-store-type
-              value: PKCS12
-            - name: TOPIC
-              value: test-scalability-topic
-            - name: DELAY_MS
-              value: "1000"
-            - name: LOG_LEVEL
-              value: "INFO"
-            - name: MESSAGE_COUNT
-              value: "10"
-            - name: PRODUCER_ACKS
-              value: "all"
-            - name: ADDITIONAL_CONFIG
-              value: |
-                retries=100
-          image: docker-repository.krj.gie:5000/jade/kafka-producer-build:latest
-          name: test-scalability-producer
-          volumeMounts:
-            - mountPath: "/tmp/kafka/cluster"
-              name: cluster-ca-cert
-            - mountPath: "/tmp/kafka/client"
-              name: client-ca-cert
-      volumes:
-        - name: cluster-ca-cert
-          secret:
-            defaultMode: 420
-            secretName: socle-cluster-cluster-ca-cert
-        - name: client-ca-cert
-          secret:
-            defaultMode: 420
-            secretName: test-scalability-user
+        - name: test-scalability-producer
+          image: cupidcb/springboot-kafka:latest
+        - lisetener:
+#          env:
+#            - name: BOOTSTRAP_SERVERS
+#              value: socle-cluster-kafka-bootstrap:9092
+#            - name: TOPIC
+#              value: test-scalability-topic
+#            - name: DELAY_MS
+#              value: "1000"
+#            - name: LOG_LEVEL
+#              value: "INFO"
+#            - name: MESSAGE_COUNT
+#              value: "1000000"
+#            - name: PRODUCER_ACKS
+#              value: "all"
+#            - name: ADDITIONAL_CONFIG
+#              value: |
+#                retries=100
