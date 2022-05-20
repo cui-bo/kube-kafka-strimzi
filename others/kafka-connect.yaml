@@ -12,7 +12,7 @@ metadata:
     strimzi.io/cluster: socle-cluster
 spec:
   partitions: 1
-  replicas: 2
+  replicas: 3
   config:
     retention.ms: 604800000 # 7 days
     segment.bytes: 1073741824 # 1 Go
@@ -176,7 +176,7 @@ spec:
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaUser
 metadata:
-  name: socle-kafka-connect-user
+  name: socle-kafka-connect
   labels:
     strimzi.io/cluster: socle-cluster
 spec:
@@ -275,19 +275,21 @@ metadata:
   # needing to call the Connect REST API directly
     strimzi.io/use-connector-resources: "true"
 spec:
+#  image: cupidcb/couchbase-sink:latest
+  image: quay.io/atiouajn/kafka-connect-couchbase:latest
   version: 3.0.0
   replicas: 1
-  bootstrapServers: socle-cluster-kafka-bootstrap:9092
-#  tls:
-#    trustedCertificates:
-#      - secretName: socle-cluster-cluster-ca-cert
-#        certificate: ca.crt
-#  authentication:
-#    type: tls
-#    certificateAndKey:
-#      secretName: socle-kafka-connect-user
-#      certificate: user.crt
-#      key: user.key
+  bootstrapServers: socle-cluster-kafka-bootstrap:9093
+  tls:
+    trustedCertificates:
+      - secretName: socle-cluster-cluster-ca-cert
+        certificate: ca.crt
+  authentication:
+    type: tls
+    certificateAndKey:
+      secretName: socle-kafka-connect
+      certificate: user.crt
+      key: user.key
 #  externalConfiguration:
 #    volumes:
 #      - name: connector-credentials
@@ -299,24 +301,24 @@ spec:
     config.storage.topic: connect-cluster-configs
     status.storage.topic: connect-cluster-status
     # -1 means it will use the default replication factor configured in the broker
-    config.storage.replication.factor: -1
-    offset.storage.replication.factor: -1
-    status.storage.replication.factor: -1
-    key.converter: org.apache.kafka.connect.json.JsonConverter
-    value.converter: org.apache.kafka.connect.json.JsonConverter
-    key.converter.schemas.enable: true
-    value.converter.schemas.enable: true
-  build:
-    output:
-      type: docker
-      image: cupidcb/couchbase-sink:latest
-      pushSecret: my-registry-credentials
-    plugins:
-      - name: couchbase-connector
-        artifacts:
-          - type: tgz
-            url: https://repo.maven.apache.org/maven2/org/apache/camel/kafkaconnector/camel-couchbase-sink-kafka-connector/1.0.0/camel-couchbase-sink-kafka-connector-1.0.0-package.tar.gz
-  template:
-    pod:
-      imagePullSecrets:
-        - name: test-secret
+    config.storage.replication.factor: 1
+    offset.storage.replication.factor: 1
+    status.storage.replication.factor: 1
+#    key.converter: org.apache.kafka.connect.json.JsonConverter
+#    value.converter: org.apache.kafka.connect.json.JsonConverter
+#    key.converter.schemas.enable: true
+#    value.converter.schemas.enable: true
+#  build:
+#    output:
+#      type: docker
+#      image: cupidcb/couchbase-sink:latest
+#      pushSecret: my-registry-credentials
+#    plugins:
+#      - name: couchbase-connector
+#        artifacts:
+#          - type: tgz
+#            url: https://repo.maven.apache.org/maven2/org/apache/camel/kafkaconnector/camel-couchbase-sink-kafka-connector/1.0.0/camel-couchbase-sink-kafka-connector-1.0.0-package.tar.gz
+#  template:
+#    pod:
+#      imagePullSecrets:
+#        - name: test-secret

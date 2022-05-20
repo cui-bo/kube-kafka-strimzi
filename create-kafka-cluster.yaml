@@ -8,7 +8,7 @@ metadata:
 spec:
   kafka:
     version: 3.0.0
-    replicas: 3
+    replicas: 6
     authorization: 
       type: simple
     listeners:
@@ -42,9 +42,9 @@ spec:
       inter.broker.protocol.version: "3.0"
       log.message.format.version: "3.0"
       offsets.topic.replication.factor: 3
-      transaction.state.log.min.isr: 1
+      transaction.state.log.min.isr: 2
       transaction.state.log.replication.factor: 3
-      min.insync.replicas: 1
+      min.insync.replicas: 2
       default.replication.factor: 3
     storage:
       type: jbod
@@ -58,7 +58,7 @@ spec:
         #   size: 10Gi
         #   deleteClaim: true
   zookeeper:
-    replicas: 1
+    replicas: 3
 #    resources:
 #      requests:
 #        memory: 1g
